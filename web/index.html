@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSwap - Campus Sustainability Exchange</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h2>EcoSwap</h2>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active" data-page="marketplace">Marketplace</a>
+                <a href="#" class="nav-link" data-page="sell">Sell Item</a>
+                <a href="#" class="nav-link" data-page="greenpoints">GreenPoints</a>
+                <a href="#" class="nav-link" data-page="profile">Profile</a>
+            </nav>
+            <div class="user-actions">
+                <span class="greenpoints-display" id="greenPoints">125 GP</span>
+                <i class="fas fa-bell"></i>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Login Modal -->
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Verify Campus Email</h3>
+                <input type="email" id="campusEmail" placeholder="student@college.ac.in" class="auth-input">
+                <button class="verify-btn" id="verifyBtn">Verify & Join</button>
+            </div>
+        </div>
+
+        <!-- Marketplace Page -->
+        <div class="page active" id="marketplace">
+            <div class="hero">
+                <h1>Campus Sustainability Exchange</h1>
+                <p>Buy, sell, swap used items within your college community</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="textbooks">Textbooks</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="hostel">Hostel Items</option>
+                    <option value="cycles">Cycles</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Search items...">
+                <select id="sortFilter">
+                    <option value="newest">Newest First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <!-- Items Grid -->
+            <div class="items-grid" id="itemsGrid">
+                <!-- Items will be populated by JS -->
+            </div>
+        </div>
+
+        <!-- Sell Page -->
+        <div class="page" id="sell">
+            <div class="sell-form-container">
+                <h2>List New Item</h2>
+                <form class="sell-form" id="sellForm">
+                    <div class="form-group">
+                        <label>Item Title</label>
+                        <input type="text" id="itemTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="itemCategory" required>
+                            <option value="textbooks">Textbooks</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="hostel">Hostel Items</option>
+                            <option value="cycles">Cycles</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₹)</label>
+                        <input type="number" id="itemPrice" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="itemDesc" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Semester Relevant</label>
+                        <select id="semester">
+                            <option value="sem1">Semester 1</option>
+                            <option value="sem2">Semester 2</option>
+                            <option value="sem3">Semester 3</option>
+                            <option value="sem4">Semester 4</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="sell-btn">List Item (+50 GP)</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- GreenPoints Page -->
+        <div class="page" id="greenpoints">
+            <div class="points-dashboard">
+                <div class="points-header">
+                    <h2>Your GreenPoints</h2>
+                    <div class="points-circle" id="pointsCircle">125</div>
+                </div>
+                <div class="points-history">
+                    <h3>Recent Activity</h3>
+                    <div id="pointsHistory">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profile">
+            <div class="profile-container">
+                <h2>Profile</h2>
+                <div class="profile-info">
+                    <p><strong>Email:</strong> <span id="userEmail">student@college.edu</span></p>
+                    <p><strong>GreenPoints:</strong> <span id="profilePoints">125</span></p>
+                    <p><strong>Rating:</strong> <span>4.8 ★ (23)</span></p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <h3>12</h3>
+                        <p>Items Sold</p>
+                    </div>
+                    <div class="stat">
+                        <h3>8</h3>
+                        <p>Items Bought</p>
+                    </div>
+                    <div class="stat">
+                        <h3>5</h3>
+                        <p>Donations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content large">
+            <span class="close">&times;</span>
+            <h3>Shopping Cart</h3>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">₹0</span>
+                </div>
+                <div class="total-row">
+                    <span>Service Fee (2%):</span>
+                    <span id="serviceFee">₹0</span>
+                </div>
+                <hr>
+                <div class="total-row total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₹0</span>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Secure Checkout</h3>
+            <div id="checkoutSummary"></div>
+            <div class="checkout-total">
+                <strong>Total: <span id="finalTotal">₹0</span></strong>
+            </div>
+            <button class="pay-btn" id="payBtn">Pay Now (+25 GP)</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Transaction Successful!</h3>
+            <p id="successMessage"></p>
+            <p><strong>+25 GreenPoints Earned!</strong></p>
+            <button class="continue-btn" id="continueBtn">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
